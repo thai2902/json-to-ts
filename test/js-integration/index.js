@@ -29,7 +29,9 @@ interface Cat {
         return `${type1}\n${type2}`
       })
       .trim()
-
+      console.log('>>>>>>');
+      console.log(output);
+      console.log('>>>>>>');
     assert.strictEqual(output, expected.trim())
   })
 

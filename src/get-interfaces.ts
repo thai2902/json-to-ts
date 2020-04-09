@@ -83,10 +83,18 @@ function replaceTypeObjIdsWithNames(typeObj: { [index: string]: string }, names:
 
 export function getInterfaceStringFromDescription({ name, typeMap }: InterfaceDescription): string {
   const stringTypeMap = Object.entries(typeMap)
-    .map(([key, name]) => `  ${key}: ${name};\n`)
+    .map(([key, name]) => {
+      let exposeProp = `  @Expose({name: '${key}'})\n`;
+      let typeSrlz = '';
+      if (name != 'string' && name!='number' && name != 'boolean') {
+        typeSrlz = `  @Type(serializeType(${name.replace('[]','')}))\n`;
+      }
+
+      return `${exposeProp}${typeSrlz}  ${key}: ${name};\n\n`;
+    })
     .reduce((a, b) => (a += b), "");
 
-  let interfaceString = `interface ${name} {\n`;
+  let interfaceString = `export class ${name} {\n`;
   interfaceString += stringTypeMap;
   interfaceString += "}";
 

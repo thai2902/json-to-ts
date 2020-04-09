@@ -20,13 +20,13 @@
     "test": "npm run build && mocha ./test/js-integration/index.js && mocha ./build/test",
     "test-reload": "nodemon -e ts -w test -w src -x 'npm test'"
   },
-  "author": "https://github.com/mariusalch",
+  "author": "https://github.com/thai2902",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MariusAlch/json-to-ts.git"
+    "url": "https://github.com/thai2902/json-to-ts.git"
   },
   "bugs": {
-    "url": "https://github.com/MariusAlch/json-to-ts/issues"
+    "url": "https://github.com/thai2902/json-to-ts/issues"
   },
   "license": "ISC",
   "dependencies": {

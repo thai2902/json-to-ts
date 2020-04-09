@@ -46,7 +46,7 @@ function getName(
 }
 
 export function getNames(typeStructure: TypeStructure, rootName: string = "RootObject"): NameEntry[] {
-  return getName(typeStructure, rootName, [], false).names.reverse();
+  return getName(typeStructure, rootName, [], false).names;
 }
 
 function getNameById(
