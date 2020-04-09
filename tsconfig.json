@@ -3,9 +3,10 @@
         "declaration": true,
         "module": "commonjs",
         "target": "es5",
+        "pretty": false,
         "noImplicitAny": false,
-        "sourceMap": true,
-        "outDir": "build",
+        "sourceMap": false,
+        "outDir": "dist",
         "lib": [
           "es2017",
           "dom"
