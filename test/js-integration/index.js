@@ -3,7 +3,7 @@ const assert = require('assert')
 describe("Javascript integration", function () {
 
   it("should work with default require statement", function () {
-    const JsonToTS = require('../../build/src/index')
+    const JsonToTS = require('../../dist/src/index')
 
     const expected = `
 interface RootObject {

@@ -1,6 +1,6 @@
 {
   "name": "json-to-ts",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Convert json object to typescript interfaces",
   "keywords": [
     "typescript",
@@ -11,8 +11,8 @@
     "lib",
     "types"
   ],
-  "types": "build/src/index.d.ts",
-  "main": "build/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "main": "dist/src/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "build": "rm -rf ./dist && tsc",

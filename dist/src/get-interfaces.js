@@ -81,8 +81,15 @@ function getInterfaceStringFromDescription(_a) {
         var key = _a[0], name = _a[1];
         var exposeProp = "  @Expose({name: '" + key + "'})\n";
         var typeSrlz = '';
-        if (name != 'string' && name != 'number' && name != 'boolean') {
-            typeSrlz = "  @Type(serializeType(" + name.replace('[]', '') + "))\n";
+        if (name != 'string' && name != 'any' && name != 'number' && name != 'boolean') {
+            typeSrlz = "  @Type(serializeType(" + name.replace('[]', '').replace('?', '') + "))\n";
+        }
+        var isDateTime = false;
+        var keyLower = key.toLowerCase();
+        if ((keyLower.indexOf('datetime') != -1) || (keyLower.indexOf('datelocal') != -1) || (keyLower.indexOf('timelocal') != -1)) {
+            isDateTime = true;
+            name = 'Date';
+            typeSrlz = "  @ServerDateTime()\n";
         }
         return "" + exposeProp + typeSrlz + "  " + key + ": " + name + ";\n\n";
     })

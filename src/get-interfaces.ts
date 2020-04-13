@@ -86,8 +86,15 @@ export function getInterfaceStringFromDescription({ name, typeMap }: InterfaceDe
     .map(([key, name]) => {
       let exposeProp = `  @Expose({name: '${key}'})\n`;
       let typeSrlz = '';
-      if (name != 'string' && name!='number' && name != 'boolean') {
-        typeSrlz = `  @Type(serializeType(${name.replace('[]','')}))\n`;
+      if (name != 'string' && name != 'any' && name!='number' && name != 'boolean') {
+        typeSrlz = `  @Type(serializeType(${name.replace('[]','').replace('?','')}))\n`;
+      }
+      let isDateTime = false;
+      let keyLower = key.toLowerCase();
+      if ((keyLower.indexOf('datetime') != -1) || (keyLower.indexOf('datelocal') != -1) || (keyLower.indexOf('timelocal') != -1)) {
+        isDateTime = true;
+        name = 'Date';
+        typeSrlz = `  @ServerDateTime()\n`;
       }
 
       return `${exposeProp}${typeSrlz}  ${key}: ${name};\n\n`;
