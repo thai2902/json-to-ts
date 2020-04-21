@@ -6,13 +6,31 @@ describe("Javascript integration", function () {
     const JsonToTS = require('../../dist/src/index')
 
     const expected = `
-interface RootObject {
-  cats: Cat[];
-  favoriteNumber: number;
-  favoriteWord: string;
-}
-interface Cat {
+export class Cat {
+  @Expose({name: 'name'})
   name: string;
+
+}
+export class RootObject {
+  @Expose({name: 'cats'})
+  @Type(serializeType(Cat))
+  cats: Cat[];
+
+  @Expose({name: 'favoriteNumber'})
+  favoriteNumber: number;
+
+  @Expose({name: 'favoriteWord'})
+  favoriteWord: string;
+
+  @Expose({name: 'myStringList'})
+  myStringList: string[];
+
+  @Expose({name: 'myAnyList1'})
+  myAnyList1: (null | string)[];
+
+  @Expose({name: 'myAnyList2'})
+  myAnyList2: any[];
+
 }`
 
     const json = {
@@ -21,7 +39,11 @@ interface Cat {
         {name: 'Mittin'},
       ],
       favoriteNumber: 42,
-      favoriteWord: 'Hello'
+      favoriteWord: 'Hello',
+      myStringList: ['Hello', 'World'],
+      myAnyList1: [null, 'World'],
+      myAnyList2: [],
+      myStringList: ['Hello', 'World'],
     }
 
     const output = JsonToTS(json)

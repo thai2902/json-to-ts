@@ -74,6 +74,17 @@ function replaceTypeObjIdsWithNames(typeObj, names) {
         return agg;
     }, {}));
 }
+var NO_SRLZ = [
+    'null',
+    'string',
+    'boolean',
+    'any',
+    'number',
+    'string[]',
+    'boolean[]',
+    'any[]',
+    'number[]',
+];
 function getInterfaceStringFromDescription(_a) {
     var name = _a.name, typeMap = _a.typeMap;
     var stringTypeMap = Object.entries(typeMap)
@@ -81,7 +92,7 @@ function getInterfaceStringFromDescription(_a) {
         var key = _a[0], name = _a[1];
         var exposeProp = "  @Expose({name: '" + key + "'})\n";
         var typeSrlz = '';
-        if (name != 'string' && name != 'any' && name != 'number' && name != 'boolean') {
+        if (!NO_SRLZ.some(function (_type) { return name.indexOf(_type) !== -1; })) {
             typeSrlz = "  @Type(serializeType(" + name.replace('[]', '').replace('?', '') + "))\n";
         }
         var isDateTime = false;

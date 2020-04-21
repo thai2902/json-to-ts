@@ -81,12 +81,24 @@ function replaceTypeObjIdsWithNames(typeObj: { [index: string]: string }, names:
   );
 }
 
+const NO_SRLZ = [
+  'null',
+  'string',
+  'boolean',
+  'any',
+  'number',
+  'string[]',
+  'boolean[]',
+  'any[]',
+  'number[]',
+]
+
 export function getInterfaceStringFromDescription({ name, typeMap }: InterfaceDescription): string {
   const stringTypeMap = Object.entries(typeMap)
     .map(([key, name]) => {
       let exposeProp = `  @Expose({name: '${key}'})\n`;
       let typeSrlz = '';
-      if (name != 'string' && name != 'any' && name!='number' && name != 'boolean') {
+      if (!NO_SRLZ.some(_type => name.indexOf(_type) !== -1)) {
         typeSrlz = `  @Type(serializeType(${name.replace('[]','').replace('?','')}))\n`;
       }
       let isDateTime = false;
